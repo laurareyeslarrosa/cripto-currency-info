@@ -1,20 +1,34 @@
-import {apiUrlList, apiUrlDetails} from './const';
+import { defaultCurrency, strReplaceCurrency } from './const';
+import { apiUrlResume, apiPriceConversion, apiDailyHistory, apiHourlyHistory } from './url.const';
 
 export function getCriptoCurrencyDataList(parent, statemame) {
-console.log("aaaa")
-    let url = apiUrlList;
+    let url = apiUrlResume;
     getApiConnectionData(parent, statemame, url);
 }
 
-export function getCriptoCurrencyDataDetails(parent, statemame) {
-    let url = apiUrlDetails;
+export function getCriptoCurrencyPriceList(parent, statemame, currencyList) {
+    let url = setUrl(apiPriceConversion, currencyList);
     getApiConnectionData(parent, statemame, url);
+}
+
+export function getCriptoCurrencyDailyHistory(parent, statemame, currency) {
+    let url = setUrl(apiDailyHistory, currency);
+    getApiConnectionData(parent, statemame, url);
+}
+
+export function getCriptoCurrencyHourlyHistory(parent, statemame, currency) {
+    let url = setUrl(apiHourlyHistory, currency);
+    getApiConnectionData(parent, statemame, url);
+}
+
+function setUrl(url, currency) {
+    return url
+        .replace(strReplaceCurrency, (currency || defaultCurrency))
 }
 
 function getApiConnectionData(parent, statemame, url, callback) {
     fetch(url)
         .then(response => {
-            console.log(response);
             if (!response.ok) {
                 throw Error("Network request failed")
             }

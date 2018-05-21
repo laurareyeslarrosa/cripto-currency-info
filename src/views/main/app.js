@@ -1,6 +1,7 @@
 
 import React from 'react';
-import { getCriptoCurrencyDataList, getCriptoCurrencyDataDetails } from './../../helpers/apiCallHandler';
+import { getCriptoCurrencyDataList, getCriptoCurrencyPriceList } from './../../helpers/apiCallHandler';
+import ListCurrency from './../../components/criptoCurrencyList/list';
 
 export default class Main extends React.Component {
     constructor(props) {
@@ -8,26 +9,49 @@ export default class Main extends React.Component {
         this.state = {
             requestFailed: false,
             criptoCurrencyDataList: null,
-            criptoCurrencyDataDetails: null
+            criptoCurrencyPriceList: null,
         }
     }
 
     componentWillMount() {
         getCriptoCurrencyDataList(this, "criptoCurrencyDataList");
-        getCriptoCurrencyDataDetails(this, "criptoCurrencyDataDetails");
+    }
+
+    componentDidUpdate() {
+        if (this.state.criptoCurrencyDataList && !this.state.criptoCurrencyPriceList) {
+            let currencyList =
+                Object.values(this.state.criptoCurrencyDataList.Data).map((item) =>
+                    item.CoinInfo.Name
+                ).join();
+            getCriptoCurrencyPriceList(this, "criptoCurrencyPriceList", currencyList);
+        }
     }
 
     render() {
-       if (this.state.criptoCurrencyDataList) {
-        return (
-            <div>
-                {this.state.criptoCurrencyDataList.data.map((item) =>
-                    <div>{item.id} - {item.name} - {item.symbol}</div>
-                )}
-            </div>
-        )
-       } else {
-           return "<div></div>"
-       }
+        if (this.state.criptoCurrencyDataList && this.state.criptoCurrencyPriceList) {
+            return (
+                <div><ListCurrency
+                    criptoCurrencyDataList={Object.values(this.state.criptoCurrencyDataList.Data)} 
+                    criptoCurrencyPriceList={this.state.criptoCurrencyPriceList} />
+                </div>
+            )
+        } else {
+            return <div />
+        }
+        /*
+        if (this.state.criptoCurrencyDataList && this.state.criptoCurrencyPriceList) {
+            console.log(this.state.criptoCurrencyDataList);
+            console.log(this.state.criptoCurrencyPriceList);
+            return (
+                <div>
+                    {Object.values(this.state.criptoCurrencyDataList.Data).map((item) =>
+                        <div>{item.Id} - {item.Name}</div>
+                    )}
+                </div>
+            )
+        } else {
+            return "<div></div>"
+        }
+        */
     }
 }
