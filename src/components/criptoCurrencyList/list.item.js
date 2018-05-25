@@ -25,8 +25,6 @@ export default class ListCurrencyItem extends React.Component {
         this.setState({ dialogOpen: true });
         getCriptoCurrencyDailyHistory(this, "criptoCurrencyDailyHistory", this.props.currencyItem.CoinInfo.Name);
         getCriptoCurrencyHourlyHistory(this, "criptoCurrencyHourlyHistory", this.props.currencyItem.CoinInfo.Name);
-
-        console.log("aaaaaaaa");
     };
 
     handleDialogClose = () => {
