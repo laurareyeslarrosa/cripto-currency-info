@@ -68,8 +68,8 @@ export default class ListCurrencyItem extends React.Component {
 
                 </Grid>
                 <DetailsDialog
-                    criptoCurrencyDailyHistory={this.state.criptoCurrencyDailyHistory}
-                    criptoCurrencyHourlyHistory={this.state.criptoCurrencyHourlyHistory}
+                    criptoCurrencyDailyHistory={this.state.criptoCurrencyDailyHistory.Data}
+                    criptoCurrencyHourlyHistory={this.state.criptoCurrencyHourlyHistory.Data}
                     isOpen={this.state.dialogOpen}
                     onCloseClick={this.handleDialogClose}
                     currencyItem={this.props.currencyItem}
