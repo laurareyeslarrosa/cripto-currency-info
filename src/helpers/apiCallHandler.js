@@ -13,11 +13,13 @@ export function getCriptoCurrencyPriceList(parent, statemame, currencyList) {
 
 export function getCriptoCurrencyDailyHistory(parent, statemame, currency) {
     let url = setUrl(apiDailyHistory, currency);
+    console.log(url);
     getApiConnectionData(parent, statemame, url);
 }
 
 export function getCriptoCurrencyHourlyHistory(parent, statemame, currency) {
     let url = setUrl(apiHourlyHistory, currency);
+    console.log(url);
     getApiConnectionData(parent, statemame, url);
 }
 

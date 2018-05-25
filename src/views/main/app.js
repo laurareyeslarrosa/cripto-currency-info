@@ -1,13 +1,16 @@
 
 import React from 'react';
+import { MuiThemeProvider } from '@material-ui/core/styles';
 import { getCriptoCurrencyDataList, getCriptoCurrencyPriceList } from './../../helpers/apiCallHandler';
 import ListCurrency from './../../components/criptoCurrencyList/list';
+import { myMuiTheme } from './../../content/styles/index.style';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Header from './../../components/header/header';
 
 export default class Main extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            requestFailed: false,
             criptoCurrencyDataList: null,
             criptoCurrencyPriceList: null,
         }
@@ -30,28 +33,18 @@ export default class Main extends React.Component {
     render() {
         if (this.state.criptoCurrencyDataList && this.state.criptoCurrencyPriceList) {
             return (
-                <div><ListCurrency
-                    criptoCurrencyDataList={Object.values(this.state.criptoCurrencyDataList.Data)} 
-                    criptoCurrencyPriceList={this.state.criptoCurrencyPriceList} />
-                </div>
+                <React.Fragment>
+                    <CssBaseline />
+                    <MuiThemeProvider theme={myMuiTheme}>
+                        <Header />
+                        <ListCurrency
+                            criptoCurrencyDataList={Object.values(this.state.criptoCurrencyDataList.Data)}
+                            criptoCurrencyPriceList={this.state.criptoCurrencyPriceList} />
+                    </MuiThemeProvider>
+                </React.Fragment>
             )
         } else {
             return <div />
         }
-        /*
-        if (this.state.criptoCurrencyDataList && this.state.criptoCurrencyPriceList) {
-            console.log(this.state.criptoCurrencyDataList);
-            console.log(this.state.criptoCurrencyPriceList);
-            return (
-                <div>
-                    {Object.values(this.state.criptoCurrencyDataList.Data).map((item) =>
-                        <div>{item.Id} - {item.Name}</div>
-                    )}
-                </div>
-            )
-        } else {
-            return "<div></div>"
-        }
-        */
     }
 }
