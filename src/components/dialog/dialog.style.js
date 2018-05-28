@@ -4,5 +4,13 @@ export const styles = {
     },
     chartContainer: {
        margin: "0 3em"
+    },
+    chartTitle: {
+        fontSize: "1em",
+        marginBottom: "0.5em"
+    },
+    chart: {
+        fontFamily: "Roboto",
+        fontSize: "12px"
     }
 }

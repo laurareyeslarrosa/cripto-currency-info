@@ -9,6 +9,7 @@ import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import { styles } from './list.style';
 import DetailsDialog from './../dialog/dialog';
+import {statenameList} from './../../helpers/const';
 import { getCriptoCurrencyDailyHistory, getCriptoCurrencyHourlyHistory } from './../../helpers/apiCallHandler';
 
 export default class ListCurrencyItem extends React.Component {
@@ -23,8 +24,8 @@ export default class ListCurrencyItem extends React.Component {
 
     handleClickDialogOpen = () => {
         this.setState({ dialogOpen: true });
-        getCriptoCurrencyDailyHistory(this, "criptoCurrencyDailyHistory", this.props.currencyItem.CoinInfo.Name);
-        getCriptoCurrencyHourlyHistory(this, "criptoCurrencyHourlyHistory", this.props.currencyItem.CoinInfo.Name);
+        getCriptoCurrencyDailyHistory(this, statenameList.dailyHistory, this.props.currencyItem.CoinInfo.Name);
+        getCriptoCurrencyHourlyHistory(this, statenameList.hourlyHistory, this.props.currencyItem.CoinInfo.Name);
     };
 
     handleDialogClose = () => {
@@ -37,13 +38,10 @@ export default class ListCurrencyItem extends React.Component {
         if (title.length > 20)
             title = title.substr(0, 20) + "...";
         return title;
-    }
+    };
 
     render() {
         console.log(this.state.criptoCurrencyDailyHistory);
-        console.log(this.state.criptoCurrencyHourlyHistory);
-        console.log(this.props.currencyItem);
-        console.log(this.props.price);
         return (
             <React.Fragment>
                 <Grid item xs={12} sm={6} md={4} lg={3} xl={2}>

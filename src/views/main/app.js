@@ -6,6 +6,7 @@ import ListCurrency from './../../components/criptoCurrencyList/list';
 import { myMuiTheme } from './../../content/styles/index.style';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Header from './../../components/header/header';
+import {statenameList} from './../../helpers/const';
 
 export default class Main extends React.Component {
     constructor(props) {
@@ -17,7 +18,7 @@ export default class Main extends React.Component {
     }
 
     componentWillMount() {
-        getCriptoCurrencyDataList(this, "criptoCurrencyDataList");
+        getCriptoCurrencyDataList(this, statenameList.dataList);
     }
 
     componentDidUpdate() {
@@ -26,7 +27,7 @@ export default class Main extends React.Component {
                 Object.values(this.state.criptoCurrencyDataList.Data).map((item) =>
                     item.CoinInfo.Name
                 ).join();
-            getCriptoCurrencyPriceList(this, "criptoCurrencyPriceList", currencyList);
+            getCriptoCurrencyPriceList(this, statenameList.priceList, currencyList);
         }
     }
 

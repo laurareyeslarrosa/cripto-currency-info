@@ -1,4 +1,4 @@
-import { defaultCurrency, strReplaceCurrency } from './const';
+import { defaultCurrency, strReplaceCurrency, statenameList } from './const';
 import { apiUrlResume, apiPriceConversion, apiDailyHistory, apiHourlyHistory } from './url.const';
 
 export function getCriptoCurrencyDataList(parent, statemame) {
@@ -13,13 +13,11 @@ export function getCriptoCurrencyPriceList(parent, statemame, currencyList) {
 
 export function getCriptoCurrencyDailyHistory(parent, statemame, currency) {
     let url = setUrl(apiDailyHistory, currency);
-    console.log(url);
     getApiConnectionData(parent, statemame, url);
 }
 
 export function getCriptoCurrencyHourlyHistory(parent, statemame, currency) {
     let url = setUrl(apiHourlyHistory, currency);
-    console.log(url);
     getApiConnectionData(parent, statemame, url);
 }
 
@@ -38,13 +36,21 @@ function getApiConnectionData(parent, statemame, url, callback) {
         })
         .then(data => data.json())
         .then(data => {
+            if (statemame === statenameList.dailyHistory || statemame === statenameList.hourlyHistory)
+                data = SetDateHistoryData(data);
             parent.setState({
                 [statemame]: data
             })
-
         }, () => {
             parent.setState({
                 requestFailed: true
             })
         })
+}
+
+function SetDateHistoryData(data) {
+    data.Data.map((item) => {
+        item.time = new Date(item.time).toLocaleString();
+    });
+    return data;
 }

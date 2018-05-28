@@ -33,21 +33,22 @@ export default class DetailsDialog extends React.Component {
     renderChart(data, title) {
         return (
             <Grid item xs={12} lg={6}>
-            <Paper>
-                <Typography variant="title" color="inherit">{title}</Typography>
-                <ResponsiveContainer width="100%" height={300}>
-                    <LineChart data={data}
-                        margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
-                        <XAxis dataKey="time" />
-                        <YAxis />
-                        <Tooltip />
-                        <Legend />
-                        <Line type="monotone" dataKey="high" stroke="#8884d8" strokeWidth={2} />
-                        <Line type="monotone" dataKey="low" stroke="#82ca9d" strokeWidth={2} />
-                        <Line type="monotone" dataKey="open" stroke="#82ca00" strokeWidth={3} />
-                        <Line type="monotone" dataKey="close" stroke="#82ca00" strokeWidth={3} />
-                    </LineChart>
-                </ResponsiveContainer>
+                <Typography style={styles.chartTitle} color="primary" variant="headline" component="h3">
+                   {title}</Typography>
+                <Paper>
+                    <ResponsiveContainer width="100%" height={300}>
+                        <LineChart data={data} style={styles.chart}
+                            margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+                            <XAxis dataKey="time" />
+                            <YAxis type="number" domain={['auto', 'auto']}/>
+                            <Tooltip />
+                            <Legend />
+                            <Line type="monotone" dataKey="high" stroke="#718792" strokeWidth={2} />
+                            <Line type="monotone" dataKey="low" stroke="#00796b" strokeWidth={2} />
+                            <Line type="monotone" dataKey="open" stroke="#1c313a" strokeWidth={3} />
+                            <Line type="monotone" dataKey="close" stroke="#c4001d" strokeWidth={3} />
+                        </LineChart>
+                    </ResponsiveContainer>
                 </Paper>
             </Grid>
         )
@@ -65,6 +66,8 @@ export default class DetailsDialog extends React.Component {
                 <div style={styles.dialogBodyContainer}>
                     <Grid container spacing={8}>
                         {this.renderToolbar()}
+                        {this.renderChart(this.props.criptoCurrencyDailyHistory, "History (daily)")}
+                        {this.renderChart(this.props.criptoCurrencyHourlyHistory, "History (hourly)")}
                         {this.renderChart(this.props.criptoCurrencyDailyHistory, "History (daily)")}
                         {this.renderChart(this.props.criptoCurrencyHourlyHistory, "History (hourly)")}
                     </Grid>
