@@ -4,7 +4,6 @@ export const styles = {
     },
     headerIconClose: {
         paddingTop: "1px",
-        marginRight: "-15px",
         fontWeight: "bold"
     },
     headertitle: {
