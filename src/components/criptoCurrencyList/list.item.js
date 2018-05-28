@@ -41,7 +41,6 @@ export default class ListCurrencyItem extends React.Component {
     };
 
     render() {
-        console.log(this.state.criptoCurrencyDailyHistory);
         return (
             <React.Fragment>
                 <Grid item xs={12} sm={6} md={4} lg={3} xl={2}>

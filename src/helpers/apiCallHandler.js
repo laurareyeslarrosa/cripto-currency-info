@@ -50,7 +50,7 @@ function getApiConnectionData(parent, statemame, url, callback) {
 
 function SetDateHistoryData(data) {
     data.Data.map((item) => {
-        item.time = new Date(item.time).toLocaleString();
+        item.time = new Date(item.time*1000).toLocaleString();
     });
     return data;
 }
